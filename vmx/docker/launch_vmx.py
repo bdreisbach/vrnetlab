@@ -189,7 +189,7 @@ class VMX_vfpc(vrnetlab.VM):
         res.extend(["-netdev",
                     "tap,ifname=vfpc-int,id=vfpc-int,script=no,downscript=no"])
 
-        if self.version in ('15.1F6.9', '16.1R2.11'):
+        if self.version in ('15.1F6.9', '16.1R2.11', '16.1R3.10', '16.1R4.7', '16.1R4-S2.2', '16.2R1.6', '17.1R1.8', '17.1R1-S1'):
             # dummy interface for some vMX versions - not sure why vFPC wants
             # it but without it we get a misalignment
             res.extend(["-device", "virtio-net-pci,netdev=dummy,mac=%s" %
@@ -247,11 +247,12 @@ class VMX(vrnetlab.VR):
 
     def read_version(self):
         for e in os.listdir("/vmx/"):
-            m = re.search("-(([0-9][0-9])\.([0-9])([A-Z])([0-9]+)\.([0-9]+))", e)
+            m = re.search("-(([0-9][0-9])\.([0-9])([R])([0-9]+)[\-\.]([S0-9]*)([0-9]*)\.?([0-9]*))\.[0-9a-z]+$", e)
             if m:
                 self.vcp_image = e
                 self.version = m.group(1)
-                self.version_info = [int(m.group(2)), int(m.group(3)), m.group(4), int(m.group(5)), int(m.group(6))]
+                # not used, and havent made it work with both R and SR images yet.
+                #self.version_info = [int(m.group(2)), int(m.group(3)), m.group(4), int(m.group(5)), int(m.group(6))]
 
 
 class VMX_installer(VMX):
