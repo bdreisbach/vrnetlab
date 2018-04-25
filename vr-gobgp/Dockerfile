@@ -18,11 +18,10 @@ RUN apt-get update -qy \
     telnet \
     vim
 
-ENV HOME /root 
-ENV WORKDIR /root
-RUN /usr/lib/go-1.10/bin/go get github.com/osrg/gobgp/gobgp
-RUN /usr/lib/go-1.10/bin/go get github.com/osrg/gobgp/gobgpd
-RUN ln -s /root/go/src/github.com/osrg/gobgp .
+ENV HOME=/root WORKDIR=/root GOPATH=/go
+
+RUN /usr/lib/go-1.10/bin/go get github.com/osrg/gobgp/gobgp \
+ && /usr/lib/go-1.10/bin/go get github.com/osrg/gobgp/gobgpd
 
 ADD bgpapi.py gobgpd.conf.tpl vr-gobgp.py /
 

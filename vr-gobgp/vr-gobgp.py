@@ -188,10 +188,10 @@ if __name__ == '__main__':
     gobgpd_config.write(template.render(config=config))
     gobgpd_config.close()
     # start gobgpd
-    gobp = subprocess.Popen(["/root/go/bin/gobgpd", "-f",  "/gobgpd.conf"])
+    gobp = subprocess.Popen(["/go/bin/gobgpd", "-f",  "/gobgpd.conf"])
     while True:
         if gobp.poll() == 0:
             print("gobgpd stopped, restarting in 2s")
             time.sleep(2)
-            gobp = subprocess.Popen(["/root/go/bin/gobgpd", "-f", "/gobgpd.conf"])
+            gobp = subprocess.Popen(["/go/bin/gobgpd", "-f", "/gobgpd.conf"])
         time.sleep(1)
