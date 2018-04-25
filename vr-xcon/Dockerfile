@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM ubuntu:xenial
 MAINTAINER Kristian Larsson <kristian@spritelink.net>
 
 ENV DEBIAN_FRONTEND=noninteractive
